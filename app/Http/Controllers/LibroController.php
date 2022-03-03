@@ -37,18 +37,16 @@ class LibroController extends Controller
     {
         $rules = [
             'titulo' => 'required|max:255',
-            'descripcion' => 'required|email|unique:users,email',
+            'descripcion' => 'max:500',
 
         ];
         $messages = [
             'required' => 'El campo :attribute es obligatorio.',
-            'email.email' => 'El campo correo no tiene el formato adecuado.',
 
         ];
         $validatedData = $request->validate($rules, $messages);
-        $validatedData['password'] = bcrypt($validatedData['password']);
-        $user = Libro::create($validatedData);
-        return $this->showOne($user,201);
+        $libro = Libro::create($validatedData);
+        return $this->showOne($libro,201);
     }
 
     /**
